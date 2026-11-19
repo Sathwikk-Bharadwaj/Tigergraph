@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+.env
+build/
+data/raw/transactions.csv
+data/raw/identity.csv
+node_modules/
+.venv/
+*.log
+.pytest_cache/
+frontend/dist/
+data/raw/*.csv
+!data/raw/case_pack.csv
+!data/raw/README.md
+
+# Claude Code workspace files
+.claude/
+
+# rendered demo footage (rebuild: scripts/demo_record.py)
+demo/reference/

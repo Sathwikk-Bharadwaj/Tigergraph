@@ -1,0 +1,123 @@
+{
+  "case_id": "HHG-002",
+  "case": {
+    "status": "open",
+    "verdict": "uncertain",
+    "fraud_probability": 0.372,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Flagged transaction 3478782 on card C11891-K1: $292.36 online under product code C on 2016-11-22 17:27:07, scored 0.79 by the bank's model.",
+        "source": "graph",
+        "ref": "query:txn_detail(txn_id=3478782)",
+        "entity_ids": [
+          "3478782",
+          "C11891-K1"
+        ]
+      },
+      {
+        "claim": "The card's established behaviour before this alert: 35 transactions, median $47.29, 95th percentile $90.54, maximum $121.32; online accounts for 100% of them.",
+        "source": "graph",
+        "ref": "query:card_profile(card_id=C11891-K1, before_ts=2016-11-22 17:27:07)",
+        "entity_ids": [
+          "C11891-K1"
+        ]
+      },
+      {
+        "claim": "Cnp fraud: $292.36 exceeds the card's historical maximum of $121.32.",
+        "source": "graph",
+        "ref": "query:card_window(card_id=C11891-K1, center_ts=2016-11-22 17:27:07)",
+        "entity_ids": [
+          "3478782"
+        ]
+      },
+      {
+        "claim": "Case memory: closed case CC-4160 (confirmed_fraud, pattern card_not_present_fraud, exposure $90.54) matches this alert on a prior investigation on this exact card.",
+        "source": "graph",
+        "ref": "query:similar_closed_cases(pattern=card_not_present_fraud, channel=online)",
+        "entity_ids": [
+          "CC-4160"
+        ]
+      },
+      {
+        "claim": "Case memory: closed case CC-1845 (confirmed_fraud, pattern card_not_present_fraud, exposure $299.91) matches this alert on same typology (card_not_present_fraud) and comparable exposure.",
+        "source": "graph",
+        "ref": "query:similar_closed_cases(pattern=card_not_present_fraud, channel=online)",
+        "entity_ids": [
+          "CC-1845"
+        ]
+      },
+      {
+        "claim": "Case memory: closed case CC-1955 (confirmed_fraud, pattern card_not_present_fraud, exposure $299.91) matches this alert on same typology (card_not_present_fraud) and comparable exposure.",
+        "source": "graph",
+        "ref": "query:similar_closed_cases(pattern=card_not_present_fraud, channel=online)",
+        "entity_ids": [
+          "CC-1955"
+        ]
+      },
+      {
+        "claim": "Case memory: closed case CC-2681 (confirmed_fraud, pattern card_not_present_fraud, exposure $299.91) matches this alert on same typology (card_not_present_fraud) and comparable exposure.",
+        "source": "graph",
+        "ref": "query:similar_closed_cases(pattern=card_not_present_fraud, channel=online)",
+        "entity_ids": [
+          "CC-2681"
+        ]
+      },
+      {
+        "claim": "Remaining uncertainty: no identity/device record attached to this online transaction, so the device and proxy tests could not be run.",
+        "source": "graph",
+        "ref": "risk:uncertainty_assessment",
+        "entity_ids": [
+          "C11891-K1"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4160",
+      "CC-1845",
+      "CC-1955",
+      "CC-2681",
+      "CC-2805",
+      "CC-3666"
+    ],
+    "summary": "Transaction 3478782 on card C11891-K1 for $292.36 online on 2016-11-22 17:27:07 was scored 0.79 by the bank's model and exceeds the card's historical maximum of $121.32. Case memory retrieved closed cases CC-4160, CC-1845, CC-1955, and CC-2681. The verdict is uncertain with a probability of 0.37 and pattern none, resulting in an exposure of $0.00 due to unrun device and proxy tests. The recommended action is CREATE_CASE (auto).",
+    "written_to_graph": true,
+    "graph_case_id": "CASE-2016-002"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "3a: assessed fraud probability 0.37 reaches the 0.30 case threshold"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "3a: assessed fraud probability 0.37 reaches the 0.30 case threshold"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "3a: fraud is not confirmed or strongly suspected (probability 0.37), so no regulatory filing is due. A case may still be opened.",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "The last step returned no evidence that changed the assessment, so further steps are unlikely to change the decision (policy 6).",
+  "tool_calls": 9,
+  "tokens": 956,
+  "latency_s": 2.84
+}
